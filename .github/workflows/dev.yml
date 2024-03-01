@@ -27,13 +27,17 @@ jobs:
     - name: Install gh-pages
       run: npm install -g gh-pages
 
+    - name: Build
+      run: npm run build
+
     - name: Configure Git
       run: |
         git config --global user.email "pimrohit33@gmail.com"
         git config --global user.name "rohitpim1"
-
+        echo "//${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" > ~/.git-credentials
 
     - name: Deploy to GitHub Pages
       run: npm run deploy
       env:
         CI: true
+        GH_PAGES_SILENT: "true"
